@@ -1,0 +1,25 @@
+From 0733328e40f92a1ab18d0542595e904223054bfa Mon Sep 17 00:00:00 2001
+From: "Brett T. Warden" <brett.t.warden@intel.com>
+Date: Tue, 7 Jan 2025 14:34:45 -0800
+Subject: [PATCH] Don't call gotags
+
+We don't provide it
+---
+ Makefile | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index 089b4ea8d579..5805714e9844 100644
+--- a/Makefile
++++ b/Makefile
+@@ -9,7 +9,6 @@ ifeq ($(PREFIX),/)
+ endif
+ 
+ all:
+-	-gotags -R . > tags
+ 	go build -ldflags "-s -w" -tags nethttpomithttp2 -mod=vendor
+ 
+ man:	$(MANPAGE)
+-- 
+2.47.1
+

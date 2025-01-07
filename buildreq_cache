@@ -1,0 +1,4 @@
+0.9.28
+go
+pkgconfig(avahi-client)
+pkgconfig(libusb-1.0)
