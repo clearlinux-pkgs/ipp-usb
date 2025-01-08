@@ -1,0 +1,2 @@
+# Use /usr/lib, not /lib
+mv %{buildroot}/lib %{buildroot}/usr/

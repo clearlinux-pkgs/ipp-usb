@@ -7,13 +7,14 @@
 #
 Name     : ipp-usb
 Version  : 0.9.28
-Release  : 1
+Release  : 2
 URL      : https://github.com/OpenPrinting/ipp-usb/archive/0.9.28/ipp-usb-0.9.28.tar.gz
 Source0  : https://github.com/OpenPrinting/ipp-usb/archive/0.9.28/ipp-usb-0.9.28.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-2-Clause
 Requires: ipp-usb-bin = %{version}-%{release}
+Requires: ipp-usb-config = %{version}-%{release}
 Requires: ipp-usb-data = %{version}-%{release}
 Requires: ipp-usb-license = %{version}-%{release}
 Requires: ipp-usb-man = %{version}-%{release}
@@ -35,11 +36,20 @@ Each file consist of sections, each section contains various parameters:
 Summary: bin components for the ipp-usb package.
 Group: Binaries
 Requires: ipp-usb-data = %{version}-%{release}
+Requires: ipp-usb-config = %{version}-%{release}
 Requires: ipp-usb-license = %{version}-%{release}
 Requires: ipp-usb-services = %{version}-%{release}
 
 %description bin
 bin components for the ipp-usb package.
+
+
+%package config
+Summary: config components for the ipp-usb package.
+Group: Default
+
+%description config
+config components for the ipp-usb package.
 
 
 %package data
@@ -89,7 +99,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1736293500
+export SOURCE_DATE_EPOCH=1736296433
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -123,7 +133,7 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1736293500
+export SOURCE_DATE_EPOCH=1736296433
 rm -rf %{buildroot}
 ## install_prepend content
 export GOFLAGS='-buildmode=pie' GO111MODULE="auto"
@@ -135,14 +145,21 @@ cp %{_builddir}/ipp-usb-%{version}/vendor/github.com/OpenPrinting/goipp/LICENSE 
 export GOAMD64=v2
 GOAMD64=v2
 %make_install
+## install_append content
+# Use /usr/lib, not /lib
+mv %{buildroot}/lib %{buildroot}/usr/
+## install_append end
 
 %files
 %defattr(-,root,root,-)
-/lib/udev/rules.d/71-ipp-usb.rules
 
 %files bin
 %defattr(-,root,root,-)
 /usr/bin/ipp-usb
+
+%files config
+%defattr(-,root,root,-)
+/usr/lib/udev/rules.d/71-ipp-usb.rules
 
 %files data
 %defattr(-,root,root,-)
@@ -163,4 +180,4 @@ GOAMD64=v2
 
 %files services
 %defattr(-,root,root,-)
-/lib/systemd/system/ipp-usb.service
+/usr/lib/systemd/system/ipp-usb.service
