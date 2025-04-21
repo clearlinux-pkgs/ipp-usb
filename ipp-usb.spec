@@ -7,7 +7,7 @@
 #
 Name     : ipp-usb
 Version  : 0.9.30
-Release  : 3
+Release  : 4
 URL      : https://github.com/OpenPrinting/ipp-usb/archive/0.9.30/ipp-usb-0.9.30.tar.gz
 Source0  : https://github.com/OpenPrinting/ipp-usb/archive/0.9.30/ipp-usb-0.9.30.tar.gz
 Summary  : No detailed summary available
